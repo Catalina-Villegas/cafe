@@ -1,0 +1,130 @@
+[
+  {
+    "id": 1,
+    "nombre": "Café a Elección",
+    "precio": 3000,
+    "descripcion": "Puedes disfrutar de un clásico cappuccino, esponjoso y cálido, decorado con arte latte que alegra el alma. Si prefieres algo más suave, nuestro latte cremoso es perfecto para ti. Para los días calurosos, un té helado refrescante saciará tu sed con sutileza. Y, por supuesto, no puede faltar el reconfortante café americano, sencillo y delicioso. Cualquiera que elijas, cada taza está preparada con amor y el toque especial que solo puedes encontrar aquí, entre felinos y sonrisas.",
+    "opciones": ["Cappuccino", "Latte", "Té helado", "Americano"],
+    "imagen": "../img/bebida1.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Juguito Natural",
+    "precio": 3500,
+    "descripcion": "Nuestros jugos son tan frescos como nuestros felinos juguetones. Disfruta de un jugo de frutas del bosque lleno de antioxidantes, un vibrante jugo de naranja cargado de vitamina C, la dulzura tropical del mango o la frescura ligera del melón. Cada vaso es una explosión de color y sabor natural, perfecto para acompañar  momentos de relajación con nuestros gatitos. ¡Salud para el cuerpo y alegría para el espíritu!",
+    "opciones": ["Frutos del Bosque", "Naranja", "Mango", "Melón"],
+    "imagen": "../img/bebida2.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "Frappe",
+    "precio": 5000,
+    "descripcion": "Nuestros frappés son el refugio perfecto para los días calurosos. Disfruta del clásico Choholate con su rica cremosidad, el caramelo dulce y reconfortante, la frescura tropical del coco o la intensidad del café moka. Cada uno viene coronado  con crema batida esponjosa y servido en vaso alto, perfecto para compartir momentos refrescantes mientras nuestros felinos te acompañan con su presencia relajante.",
+    "opciones": ["Chocolate", "Caramelo", "Coco", "Moka"],
+    "imagen": "../img/bebida3.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "[Especial] Chocolate Caliente",
+    "precio": 5000,
+    "descripcion": "¡Descubre nuestro Especial de la semana! Esta semana te envolvemos en el abrazo más cálido con nuestro Chocolate Caliente,  una bebida reconfortante que despierta todos los sentidos. Rico chocolate cremoso coronado con nubes de crema batida y virutas  de cacao, perfecto para compartir momentos íntimos con nuestros felinos siameses. Cada semana renovamos esta sorpresa especial,  así que no te pierdas la oportunidad de probar algo único. ¡Ven y déjate mimar por el calor del chocolate y la compañía felina!",
+    "opciones": ["Chocolate Belga", "Chocolate Italiano"],
+    "imagen": "../img/bebida4.jpg"
+  },
+  {
+    "id": 5,
+    "nombre": "Bocadito Galletita Frutal",
+    "precio": 2500,
+    "descripcion": "El Bocadito Galletita Frutal nació del deseo de capturar la esencia de una tarde de verano en un bocado. Este encantador postre combina una base crujiente de galleta que sostiene delicadas capas de crema suave y gelatina de vibrantes frutas. Inspirado en la frescura y colores de un jardín en flor, se completa con una corona de frutas frescas: fresas, frambuesas, arándanos y uvas.",
+    "opciones": [],
+    "imagen": "../img/postre1.jpg"
+  },
+  {
+    "id": 6,
+    "nombre": "Bocadito de Mousse Frutal",
+    "precio": 2500,
+    "descripcion": "Pequeño postre individual con una cúpula de mousse de chocolate firme, coronada por crema batida espolvoreada con cacao. Se sirve sobre un hilo de salsa de caramelo y se acompaña de frutas frescas (frambuesas, moras y mango) y hojas de menta, ofreciendo un elegante contraste de sabores, texturas y colores.",
+    "opciones": [],
+    "imagen": "../img/postre2.jpg"
+  },
+  {
+    "id": 7,
+    "nombre": "Mousse Chocolate y Crema",
+    "precio": 4000,
+    "descripcion": "Déjate seducir por nuestro Bocadito de Mousse Chocolate y Crema: una pequeña joya de sabor donde una cúpula de mousse de chocolate intenso te envuelve con su brillo seductor. Al primer bocado, la suavidad aterciopelada del chocolate se funde en tu boca, mientras la esfera de crema ligera corona la experiencia con un toque de delicadeza y frescura de menta. Cada cucharada se equilibra con el crujiente de las migas doradas de galleta, que aportan un contrapunto crujiente y dorado. Es un viaje de texturas y contrastes que despierta todos los sentidos y convierte un simple momento dulce en un deleite inolvidable.",
+    "opciones": [],
+    "imagen": "../img/postre3.jpg"
+  },
+  {
+    "id": 8,
+    "nombre": "Tartita de Arándonos Con Crema",
+    "precio": 4000,
+    "descripcion": "Sumérgete en el deleite de nuestra Tartita de Arándanos con Crema: una explosión de frescura y sabor. Sobre una base delicadamente crujiente, se asienta un generoso remolino de crema coronado con un brillo de arándanos jugosos. Cada mordisco es una sinfonía entre lo dulce y lo ácido, rematado con una nube de crema que se derrite en el paladar. Es un capricho irresistible que promete transportarte a un jardín de sabores.",
+    "opciones": [],
+    "imagen": "../img/postre4.jpg"
+  },
+  {
+    "id": 9,
+    "nombre": "Flansito Bañado en Chocolate",
+    "precio": 4000,
+    "descripcion": "Imagina un flan aterciopelado y suave, cubierto por una rica capa de chocolate derretido que se desliza lentamente por los bordes. La textura es un sueño para el paladar, contrastando con la dulzura perfecta de la crema batida coronada con alegres chispas de colores. Alrededor, frambuesas frescas añaden un toque afrutado y refrescante. Cada cucharada te invita a disfrutar de una experiencia decadente y divertida que hará sonreír todos tus sentidos.",
+    "opciones": [],
+    "imagen": "../img/postre5.jpg"
+  },
+  {
+    "id": 10,
+    "nombre": "Flansito de Chocolate y Frutillas",
+    "precio": 4000,
+    "descripcion": "Disfruta de un placer celestial con nuestra combinación exquisita de flan de chocolate, coronado con una generosa espiral de crema batida. Alrededor, frutillas frescas y flores comestibles añaden un toque de frescura y color. La suavidad del flan se equilibra perfectamente con la intensidad del chocolate y la ligereza de la crema, creando una sinfonía de sabores que encantará todos tus sentidos. Este postre es una invitación a disfrutar cada instante dulce de la vida.",
+    "opciones": [],
+    "imagen": "../img/postre6.jpg"
+  },
+  {
+    "id": 11,
+    "nombre": "Tartita de Frutillas y Crema",
+    "precio": 4000,
+    "descripcion": "Prepárate para disfrutar de una experiencia deliciosa con nuestra creación, donde capas de esponjoso bizcocho de cacao se alternan con crema suave y fresca. El relleno de frescas frutillas añade un toque jugoso y refrescante, mientras que la cobertura de crema batida se corona con frutillas enteras para un toque final vibrante. Cada porción proporciona un equilibrio perfecto entre la ternura del bizcocho y la frescura de las frutas, haciendo de cada bocado una celebración de sabores.",
+    "opciones": [],
+    "imagen": "../img/postre7.jpg"
+  },
+  {
+    "id": 12,
+    "nombre": "Tartita de Limonsito y Gelatina",
+    "precio": 4000,
+    "descripcion": "Nuestra Tartita de Limoncito y Gelatina es un postre lleno de frescura y suavidad. Sobre una base crujiente de galleta se alza una capa cremosa y ligera, acompañada de una delicada gelatina de limón que realza su sabor con notas cítricas y refrescantes. Su equilibrio entre dulzura y acidez, decorado con un toque de crema y hojas de menta, la convierte en una opción perfecta para quienes buscan un postre ligero, elegante y lleno de vida.",
+    "opciones": [],
+    "imagen": "../img/postre8.jpg"
+  },
+  {
+    "id": 13,
+    "nombre": "Wombo Combo Chocolate",
+    "precio": 8500,
+    "descripcion": "El Wombo Combo Chocolate es el kit soñado para los amantes del cacao. Incluye una generosa rebanada de pastel de chocolate húmedo y esponjoso, acompañado de crema batida suave. Pero lo mejor está en los detalles: un frasco de galletitas artesanales con chispas de chocolate, listas para compartir (¡o no!) y una bebida a elección para completar la experiencia a tu gusto. Un combo irresistible que lo tiene TODO: sabor, dulzura y un toque de diversión.",
+    "opciones": [],
+    "imagen": "../img/wombocombo1.jpg"
+  },
+  {
+    "id": 14,
+    "nombre": "Wombo Combo Vainillita",
+    "precio": 8500,
+    "descripcion": "El Wombo Combo Vainillita es pura dulzura en cada detalle. Incluye una esponjosa rebanada de pastel de vainilla relleno de suave crema, con un sabor delicado y clásico que nunca falla. Acompañado de un encantador frasco con galletitas crocantes y un toque cremoso en la base, perfecto para compartir o disfrutar solo. Además, como en todos nuestros combos, lo completas con una bebida a elección para hacerlo aún más irresistible.",
+    "opciones": [],
+    "imagen": "../img/wombocombo2.jpg"
+  },
+  {
+    "id": 15,
+    "nombre": "Wombo Combo Frutillita",
+    "precio": 8500,
+    "descripcion": "El Wombo Combo Frutillita es frescura, dulzura y diversión en un solo pack. Incluye una esponjosa rebanada de bizcocho de vainilla con crema suave, coronada con frutillas frescas y jugosas que lo hacen irresistible. Acompañado de un frasco con galletitas crocantes, capas de crema y un toque especial de sabor, listo para disfrutar cucharada tras cucharada. Y como en todos nuestros combos, viene acompañado de una bebida a elección para completar la experiencia perfecta.",
+    "opciones": [],
+    "imagen": "../img/wombocombo3.jpg"
+  },
+  {
+    "id": 16,
+    "nombre": "Super Mega Wombo Combo",
+    "precio": 10000,
+    "descripcion": "El Super Mega Wombo Combo es nuestro combo estrella: más grande, más goloso y perfecto para compartir. Incluye una rebanada XL de torta con crema suave, toque de chocolate y frutillas frescas. Además, trae un frasco generoso que combina capas de torta y crema con galletas crocantes (sí: frasco con torta y galletas). Y, como siempre, lo completas con una bebida a elección. Rebanada XL de torta",
+    "opciones": [],
+    "imagen": "../img/wombocombo4.jpg"
+  }
+]

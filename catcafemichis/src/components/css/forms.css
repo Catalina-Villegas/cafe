@@ -1,0 +1,110 @@
+/* ----- CONTENEDOR GENERAL DEL FORMULARIO ----- */
+.form-container {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 40px;
+  background: hsl(30, 50%, 70%);
+  border-radius: 10px;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Diferencia visual entre login y registro si quieres */
+#loginForm {
+  padding: 30px 30px;
+}
+
+#registroForm {
+  width: 100%;
+}
+
+/* ----- TÍTULOS ----- */
+.form-container h2 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #fff;
+  font-size: 32px;
+}
+
+/* Texto adicional o mensajes */
+.form-textoextra {
+  text-align: center;
+  font-size: 15px;
+  color: #fff;
+  margin-top: 0;
+}
+
+/* ----- ESTRUCTURA DE CAMPOS ----- */
+.form-dato {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.form-container label {
+  text-align: left;
+  width: 100%;
+  max-width: 500px;
+  color: #593122;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  max-width: 500px;
+  height: 38px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* Ajuste especial para teléfono y fecha */
+input[type="tel"],
+input[type="date"] {
+  text-align: left;
+  padding-left: 10px;
+}
+
+/* ----- BOTÓN ----- */
+button,
+.btn {
+  background-color: #593122;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover,
+.btn:hover {
+  background-color: #7a4b36;
+}
+
+/* ----- MENSAJES DE ERROR ----- */
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* ----- ENLACE DE REGISTRO ----- */
+.link-registro {
+  color: #593122;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.mt-3,
+.mb-4 {
+  text-align: center;
+  color: white;
+}

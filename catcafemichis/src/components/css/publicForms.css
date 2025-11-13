@@ -1,0 +1,70 @@
+/* === ESTILOS ESPECÍFICOS PARA LOGIN Y REGISTRO (páginas públicas) === */
+
+.public-form-page main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 75vh;
+  background-color: #f1eae3;
+}
+
+.public-form {
+  background-color: #D9B38C;
+  padding: 40px 60px;
+  border-radius: 10px;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  margin: 100px auto;
+}
+
+.public-form h2 {
+  color: #fff;
+  font-size: 32px;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.public-form label {
+  display: block;
+  text-align: left;
+  color: #4e2d20;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.public-form input,
+.public-form select,
+.public-form textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.public-form input:focus {
+  outline: none;
+  border-color: #BF8049;
+  box-shadow: 0 0 5px rgba(191, 128, 73, 0.3);
+  background-color: #fffaf6;
+}
+
+.public-form button {
+  background-color: #593122;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.public-form button:hover {
+  background-color: #BF8049;
+}
