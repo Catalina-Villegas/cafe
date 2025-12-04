@@ -20,16 +20,14 @@ import Blog4 from './components/pages/public/Blog4';
 import AdminPanel from './components/pages/admin/AdminPanel';
 import ProductosPanel from'./components/pages/admin/ProductosPanel';
 import UsuariosPanel from'./components/pages/admin/UsuariosPanel';
-import CrearProducto from './components/pages/admin/CrearProducto';
-import CrearUsuario from'./components/pages/admin/CrearUsuario';
-import EditarProducto from'./components/pages/admin/EditarProducto';
-import EditarUsuario from'./components/pages/admin/EditarUsuario';
 import Contacto from './components/pages/admin/Contacto';
+
+import ProtectedRoute from "./components/organisms/ProtectedRoute";
 
 
 function App() {
   return (
-
+    
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home/>} />
@@ -46,18 +44,42 @@ function App() {
         <Route path="/Blog4" element={<Blog4 />} />
 
 
-        <Route path="/admin" element={<AdminPanel />} />
-        <Route path="/admin/ProductosPanel" element={<ProductosPanel />} />
-        <Route path="/admin/EditarProducto" element={<EditarProducto />} />
-        <Route path="/admin/CrearProducto" element={<CrearProducto />} />
-        <Route path="/admin/UsuariosPanel" element={<UsuariosPanel />} />
-        <Route path="/admin/CrearUsuario" element={<CrearUsuario />} />
-        <Route path="/admin/EditarUsuario" element={<EditarUsuario />} />
-        <Route path='/admin/Contacto' element={<Contacto />} />
+        <Route path="/admin" 
+          element={
+            <ProtectedRoute adminOnly={true}>
+              <AdminPanel />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/admin/ProductosPanel" 
+          element={
+            <ProtectedRoute adminOnly={true}>
+              <ProductosPanel />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/admin/UsuariosPanel" 
+          element={
+            <ProtectedRoute adminOnly={true}>
+              <UsuariosPanel />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route path="/admin/Contacto" 
+          element={
+            <ProtectedRoute adminOnly={true}>
+              <Contacto />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
-    
+          
   );
 }
 
 export default App;
+
