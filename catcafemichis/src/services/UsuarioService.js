@@ -23,8 +23,12 @@ class UsuarioService {
     }
 
     login(credentials) {
-        // credentials = { usuario: correo, password: contrasenia }
         return api.post('/auth/login', credentials);
     }
+
+    registrar(usuario) {
+        return api.post('/usuarios', usuario);
+    }
+    
 }
 export default new UsuarioService();
