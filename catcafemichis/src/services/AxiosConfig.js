@@ -1,0 +1,25 @@
+import axios from 'axios';
+
+// 1. Crear una instancia de Axios
+const api = axios.create({
+    baseURL: 'http://3.91.70.115:3000'
+});
+
+// 2. Configurar el Interceptor
+api.interceptors.request.use(
+    (config) => {
+        // Buscar el token en el almacenamiento local
+        const token = localStorage.getItem('token');
+        
+        // Si existe, agregarlo al encabezado Authorization
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+export default api;
