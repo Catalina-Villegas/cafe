@@ -1,26 +1,27 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../../css/publicForms.css";
 import Header from "../../organisms/Header.jsx";
 import Footer from "../../organisms/Footer.jsx";
-import { useUsers } from "../../../context/UsersContext";
+import UsuarioService from "../../../services/UsuarioService";
 
 function RegistrationForm() {
-  const { registrar } = useUsers();
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     nombre: "",
     apellidos: "",
     correo: "",
     contrasenia: "",
-    confirmarContrasenia: "",
-    telefono: "",
-    fechaNacimiento: ""
+    confirmarContrasenia: ""
   });
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.contrasenia !== formData.confirmarContrasenia) {
@@ -28,26 +29,38 @@ function RegistrationForm() {
       return;
     }
 
-    registrar({
-      nombre: formData.nombre,
-      apellidos: formData.apellidos,
-      correo: formData.correo,
-      contrasenia: formData.contrasenia,
-      telefono: formData.telefono,
-      fechaNacimiento: formData.fechaNacimiento,
-      tipoUsuario: "cliente"
-    });
+    try {
+      const usuario = {
+        nombre: formData.nombre,
+        apellidos: formData.apellidos,
+        correo: formData.correo,
+        contrasenia: formData.contrasenia,
+        tipoUsuario: "cliente"
+      };
 
-    alert("✅ Registro exitoso.");
-    setFormData({
-      nombre: "",
-      apellidos: "",
-      correo: "",
-      contrasenia: "",
-      confirmarContrasenia: "",
-      telefono: "",
-      fechaNacimiento: ""
-    });
+      const response = await UsuarioService.registrar(usuario);
+      console.log("Usuario creado:", response.data);
+
+      alert("✅ Registro exitoso");
+      navigate("/login");
+
+      setFormData({
+        nombre: "",
+        apellidos: "",
+        correo: "",
+        contrasenia: "",
+        confirmarContrasenia: ""
+      });
+
+    } catch (error) {
+      console.error("Error al registrar:", error);
+
+      if (error.response?.data?.message) {
+        alert("❌ " + error.response.data.message);
+      } else {
+        alert("❌ Error al registrar usuario.");
+      }
+    }
   };
 
   return (
@@ -57,12 +70,13 @@ function RegistrationForm() {
       <main className="public-form-page">
         <div className="public-form">
           <h2>Registro</h2>
+
           <form onSubmit={handleSubmit}>
+
             <label>Nombre *</label>
             <input
               type="text"
               name="nombre"
-              placeholder="Ingresa tu nombre"
               value={formData.nombre}
               onChange={handleChange}
               required
@@ -72,7 +86,6 @@ function RegistrationForm() {
             <input
               type="text"
               name="apellidos"
-              placeholder="Ingresa tus apellidos"
               value={formData.apellidos}
               onChange={handleChange}
               required
@@ -82,7 +95,6 @@ function RegistrationForm() {
             <input
               type="email"
               name="correo"
-              placeholder="ejemplo@correo.com"
               value={formData.correo}
               onChange={handleChange}
               required
@@ -92,7 +104,6 @@ function RegistrationForm() {
             <input
               type="password"
               name="contrasenia"
-              placeholder="Mínimo 6 caracteres"
               value={formData.contrasenia}
               onChange={handleChange}
               required
@@ -102,26 +113,7 @@ function RegistrationForm() {
             <input
               type="password"
               name="confirmarContrasenia"
-              placeholder="Repite la contraseña"
               value={formData.confirmarContrasenia}
-              onChange={handleChange}
-              required
-            />
-
-            <label>Teléfono</label>
-            <input
-              type="tel"
-              name="telefono"
-              placeholder="+56 9..."
-              value={formData.telefono}
-              onChange={handleChange}
-            />
-
-            <label>Fecha de nacimiento *</label>
-            <input
-              type="date"
-              name="fechaNacimiento"
-              value={formData.fechaNacimiento}
               onChange={handleChange}
               required
             />
@@ -144,3 +136,5 @@ function RegistrationForm() {
 }
 
 export default RegistrationForm;
+
+
