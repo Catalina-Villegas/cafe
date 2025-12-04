@@ -1,26 +1,81 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../../css/index.css";
+import "../../css/forms.css";
+import ProductoService from "../../../services/ProductoService"; // Servicio API
 
 function ProductosPanel() {
   const [productos, setProductos] = useState([]);
+  const [productoEditando, setProductoEditando] = useState(null);
+  const [form, setForm] = useState({
+    nombre: "",
+    precio: "",
+    descripcion: "",
+    imagen: "",
+  });
+
+  // Cargar productos desde API
+  const listarProductos = () => {
+    ProductoService.getAllProductos()
+      .then((res) => setProductos(res.data))
+      .catch((err) => console.error("Error al cargar productos:", err));
+  };
 
   useEffect(() => {
-  // 1️⃣ Revisar si hay productos en localStorage
-  const productosLS = JSON.parse(localStorage.getItem("productos"));
-  if (productosLS && productosLS.length > 0) {
-    setProductos(productosLS);
-  } else {
-    // 2️⃣ Si no hay, cargar desde JSON
-    fetch("/productos.json")
-      .then((res) => res.json())
-      .then((data) => {
-        setProductos(data);
-        localStorage.setItem("productos", JSON.stringify(data)); // Guardar en LS
+    listarProductos();
+  }, []);
+
+  // Manejar cambios del formulario
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Guardar producto (crear o actualizar)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (productoEditando) {
+      // Editar producto
+      ProductoService.updateProducto(productoEditando.id, form)
+        .then(() => {
+          alert("✅ Producto actualizado correctamente");
+          setProductoEditando(null);
+          setForm({ nombre: "", precio: "", descripcion: "", imagen: "" });
+          listarProductos();
+        })
+        .catch((err) => console.error(err));
+    } else {
+      // Crear producto
+      ProductoService.createProducto(form)
+        .then(() => {
+          alert("✅ Producto agregado correctamente");
+          setForm({ nombre: "", precio: "", descripcion: "", imagen: "" });
+          listarProductos();
+        })
+        .catch((err) => console.error(err));
+    }
+  };
+
+  //  Seleccionar producto para editar
+  const handleEditar = (producto) => {
+    setProductoEditando(producto);
+    setForm({ ...producto });
+  };
+
+  // Eliminar producto
+  const handleEliminar = (id) => {
+    if (!window.confirm("¿Seguro que deseas eliminar este producto?")) return;
+    ProductoService.deleteProducto(id)
+      .then(() => {
+        alert("🗑️ Producto eliminado correctamente");
+        if (productoEditando && productoEditando.id === id) {
+          setProductoEditando(null);
+          setForm({ nombre: "", precio: "", descripcion: "", imagen: "" });
+        }
+        listarProductos();
       })
-      .catch((err) => console.error("Error al cargar productos:", err));
-  }
-}, []);
+      .catch((err) => console.error(err));
+  };
 
   return (
     <div className="admin-usuarios">
@@ -31,18 +86,10 @@ function ProductosPanel() {
           <ul>
             <li>
               <Link to="/admin/ProductosPanel" className="active">
-                Mostrar Productos
+                Gestionar Productos
               </Link>
             </li>
-            <li>
-              <Link to="/admin/CrearProducto">Nuevo Producto</Link>
-            </li>
-            <li>
-              <Link to="/admin/EditarProducto">Editar Productos</Link>
-            </li>
           </ul>
-
-          {/* Botón de regreso */}
           <div className="sidebar-footer">
             <Link to="/admin" className="btn-volver-panel">
               ⬅️ Volver al Panel Admin
@@ -50,64 +97,113 @@ function ProductosPanel() {
           </div>
         </aside>
 
-        {/* CONTENIDO PRINCIPAL */}
+        {/* Contenido principal */}
         <main className="admin-content usuarios-content">
           <section className="usuarios-header">
-            <h1>Gestión de Productos</h1>
-            <p>Consulta los productos registrados en el sistema.</p>
+            <h1>{productoEditando ? "Editar Producto" : "Agregar Nuevo Producto"}</h1>
           </section>
 
-          {/* TABLA DE PRODUCTOS */}
+          {/* Tabla productos */}
           <section className="usuarios-tabla-contenedor">
-            {productos.length === 0 ? (
-              <p className="usuarios-vacio">
-                No hay productos registrados todavía. 😿
-              </p>
-            ) : (
-              <table className="usuarios-tabla">
-                <thead>
+            <table className="usuarios-tabla">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Precio</th>
+                  <th>Descripción</th>
+                  <th>Imagen</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {productos.length === 0 ? (
                   <tr>
-                    <th>ID</th>
-                    <th>Imagen</th>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Descripción</th>
-                    <th>Opciones</th>
+                    <td colSpan="5" style={{ textAlign: "center", color: "#593122" }}>
+                      No hay productos disponibles.
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {productos.map((p, index) => (
-                    <tr key={index}>
-                      <td>{p.id}</td>
-                      <td>
-                        <img
-                          src={p.imagen}
-                          alt={p.nombre}
-                          style={{
-                            width: "60px",
-                            height: "60px",
-                            objectFit: "cover",
-                            borderRadius: "5px",
-                          }}
-                        />
-                      </td>
+                ) : (
+                  productos.map((p, i) => (
+                    <tr key={i}>
                       <td>{p.nombre}</td>
                       <td>${p.precio.toLocaleString("es-CL")}</td>
-                      <td className="descripcion-corta">
+                      <td>
                         {p.descripcion.length > 60
                           ? `${p.descripcion.substring(0, 60)}...`
                           : p.descripcion}
                       </td>
                       <td>
-                        {p.opciones && p.opciones.length > 0
-                          ? p.opciones.join(", ")
-                          : "—"}
+                        {p.imagen && (
+                          <img
+                            src={p.imagen}
+                            alt={p.nombre}
+                            style={{ width: "60px", height: "60px", objectFit: "cover", borderRadius: "5px" }}
+                          />
+                        )}
+                      </td>
+                      <td style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+                        <button className="enviar-btn-usu" onClick={() => handleEditar(p)}>
+                          Editar
+                        </button>
+                        <button className="enviar-btn-usu eliminar-btn" onClick={() => handleEliminar(p.id)}>
+                          Eliminar
+                        </button>
                       </td>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
+                  ))
+                )}
+              </tbody>
+            </table>
+          </section>
+
+          {/* Formulario de creación/edición */}
+          <section className="usuarios-form-contenedor">
+            <form onSubmit={handleSubmit} className="usuarios-form">
+              <div className="form-dato">
+                <label>Nombre *</label>
+                <input
+                  name="nombre"
+                  type="text"
+                  value={form.nombre}
+                  onChange={handleChange}
+                  required
+                  className="form-control"
+                />
+              </div>
+              <div className="form-dato">
+                <label>Precio *</label>
+                <input
+                  name="precio"
+                  type="number"
+                  value={form.precio}
+                  onChange={handleChange}
+                  required
+                  className="form-control"
+                />
+              </div>
+              <div className="form-dato">
+                <label>Descripción</label>
+                <textarea
+                  name="descripcion"
+                  value={form.descripcion}
+                  onChange={handleChange}
+                  className="form-control"
+                />
+              </div>
+              <div className="form-dato">
+                <label>Imagen (URL)</label>
+                <input
+                  name="imagen"
+                  type="text"
+                  value={form.imagen}
+                  onChange={handleChange}
+                  className="form-control"
+                />
+              </div>
+              <button type="submit" className="btn enviar-btn-admin">
+                {productoEditando ? "Guardar Cambios" : "Agregar Producto"}
+              </button>
+            </form>
           </section>
         </main>
       </div>
