@@ -3,12 +3,14 @@ import "../../css/publicForms.css";
 import Header from "../../organisms/Header.jsx";
 import Footer from "../../organisms/Footer.jsx";
 import { useNavigate } from "react-router-dom";
+import UsuarioService from "../../../services/UsuarioService";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
     correo: "",
     contrasenia: ""
   });
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
@@ -16,24 +18,44 @@ function LoginForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
 
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    const usuarioEncontrado = usuarios.find(
-      (u) =>
-        u.correo === formData.correo && u.contrasenia === formData.contrasenia
-    );
+    try {
+      const res = await UsuarioService.login({
+        correo: formData.correo,
+        contrasenia: formData.contrasenia
+      });
+      
+      console.log("Datos enviados:", formData);
+      console.log("Respuesta del backend:", res.data);
 
-    if (usuarioEncontrado) {
-      alert(`✅ ¡Bienvenido ${usuarioEncontrado.nombre}!`);
-      if (usuarioEncontrado.tipoUsuario === "administrador") {
-      navigate("/admin");
+      const token = res.data.token;
+      // Guardar token en localStorage
+      
+      localStorage.setItem("token", token);
+
+      // Decodificar token para obtener datos del usuario
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const rol = payload.rol;
+      const nombre = payload.nombre;
+
+      alert(`✅ ¡Bienvenido ${nombre}!`);
+
+      // Redirigir según rol
+      if (rol === "admin") {
+        navigate("/admin");
       } else {
-      navigate("/");
+        navigate("/");
       }
-    } else {
-      alert("❌ Correo o contraseña incorrectos.");
+    } catch (err) {
+      console.error("Error login:", err);
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      } else {
+        setError("❌ Error al iniciar sesión. Intenta nuevamente.");
+      }
     }
   };
 
@@ -44,6 +66,8 @@ function LoginForm() {
       <main className="public-form-page">
         <div className="public-form">
           <h2>Iniciar sesión</h2>
+          {error && <p className="error-message">{error}</p>}
+
           <form onSubmit={handleSubmit}>
             <label>Correo electrónico</label>
             <input
@@ -83,3 +107,5 @@ function LoginForm() {
 }
 
 export default LoginForm;
+
+
