@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../css/index.css";
+import { useNavigate } from "react-router-dom";
 
 function AdminPanel() {
   const navigate = useNavigate();
@@ -44,6 +45,9 @@ function AdminPanel() {
         <Link to="/admin/UsuariosPanel" className="panel-card">
           Usuarios
         </Link>
+        <Link to="/admin/BoletasPanel" className="panel-card">
+          Boletas
+        </Link>
         <Link to="/admin/Contacto" className="panel-card">
           Contacto
         </Link>
@@ -53,4 +57,3 @@ function AdminPanel() {
 }
 
 export default AdminPanel;
-
