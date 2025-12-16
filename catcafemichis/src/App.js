@@ -20,6 +20,7 @@ import Blog4 from './components/pages/public/Blog4';
 import AdminPanel from './components/pages/admin/AdminPanel';
 import ProductosPanel from'./components/pages/admin/ProductosPanel';
 import UsuariosPanel from'./components/pages/admin/UsuariosPanel';
+import BoletasPanel from'./components/pages/admin/BoletasPanel';
 import Contacto from './components/pages/admin/Contacto';
 
 import ProtectedRoute from "./components/organisms/ProtectedRoute";
@@ -67,7 +68,15 @@ function App() {
             </ProtectedRoute>
           }
         />
-
+          
+        <Route path="/admin/BoletasPanel" 
+          element={
+            <ProtectedRoute adminOnly={true}>
+              <BoletasPanel />
+            </ProtectedRoute>
+          }
+        />
+          
         <Route path="/admin/Contacto" 
           element={
             <ProtectedRoute adminOnly={true}>
