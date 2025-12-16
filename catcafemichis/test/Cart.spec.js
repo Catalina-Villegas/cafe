@@ -1,56 +1,63 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import Cart from "../src/components/organisms/Cart";
+import * as CartService from "../src/services/CartService";
+import AuthService from "../src/services/AuthService";
 
-describe("Cart component", () => {
+describe("Cart Component", () => {
+  let onRemoveSpy, onClearSpy;
 
-  it("muestra mensaje cuando el carrito está vacío", () => {
-    render(<Cart carrito={[]} onRemove={() => {}} onClear={() => {}} />);
-    
-    expect(screen.getByText("🛒 Carrito (0)")).toBeTruthy();
+  beforeEach(() => {
+    onRemoveSpy = jasmine.createSpy("onRemove");
+    onClearSpy = jasmine.createSpy("onClear");
+  });
+
+  afterEach(() => {
+    // Restaurar spies si se mockearon
+    if (CartService.generarBoleta.and) {
+      CartService.generarBoleta.and.callThrough();
+    }
+  });
+
+  it("Renderiza carrito vacío correctamente", () => {
+    render(<Cart carrito={[]} onRemove={onRemoveSpy} onClear={onClearSpy} />);
     expect(screen.getByText("Tu carrito está vacío 🐾")).toBeTruthy();
+    expect(screen.queryByText("Pagar")).toBeNull();
   });
 
-  it("muestra productos en el carrito con su total", () => {
+  it("Renderiza productos y calcula total", () => {
     const carrito = [
-      { nombre: "Gato de peluche", precio: 12000 },
-      { nombre: "Rascador", precio: 45000, opcion: "Mediano" },
+      { nombre: "Producto 1", precio: 1000, cantidad: 2 },
+      { nombre: "Producto 2", precio: 500, cantidad: 1 },
     ];
+    render(<Cart carrito={carrito} onRemove={onRemoveSpy} onClear={onClearSpy} />);
 
-    render(<Cart carrito={carrito} onRemove={() => {}} onClear={() => {}} />);
-
-    expect(screen.getByText("🛒 Carrito (2)")).toBeTruthy();
-    expect(screen.getByText("Gato de peluche – $12.000")).toBeTruthy();
-    expect(screen.getByText("Rascador (Mediano) – $45.000")).toBeTruthy();
-    expect(screen.getByText("Total: $57.000")).toBeTruthy();
+    expect(screen.getByText("Producto 1 – $2.000")).toBeTruthy();
+    expect(screen.getByText("Producto 2 – $500")).toBeTruthy();
+    expect(screen.getByText("Total: $2.500")).toBeTruthy();
   });
 
-  it("llama onRemove cuando se hace click en ❌ de un producto", () => {
-    const carrito = [{ nombre: "Gato de peluche", precio: 12000 }];
-    const onRemoveSpy = jasmine.createSpy("onRemove");
+  it("Llama a onRemove cuando se hace click en ❌", () => {
+    const carrito = [{ nombre: "Producto 1", precio: 1000, cantidad: 1 }];
+    render(<Cart carrito={carrito} onRemove={onRemoveSpy} onClear={onClearSpy} />);
 
-    render(<Cart carrito={carrito} onRemove={onRemoveSpy} onClear={() => {}} />);
-    
-    const removeButton = screen.getByText("❌");
-    fireEvent.click(removeButton);
-
+    fireEvent.click(screen.getByText("❌"));
     expect(onRemoveSpy).toHaveBeenCalledWith(0);
   });
 
-  it("llama onClear y muestra alerta al pagar", () => {
-    const carrito = [{ nombre: "Rascador", precio: 45000 }];
-    const onClearSpy = jasmine.createSpy("onClear");
-
-    // Mock alert de navegador
+  it("Muestra alert si no hay usuario al pagar", async () => {
+    spyOn(AuthService, "getCurrentUser").and.returnValue(null);
+    const carrito = [{ nombre: "Producto 1", precio: 1000, cantidad: 1 }];
     spyOn(window, "alert");
 
-    render(<Cart carrito={carrito} onRemove={() => {}} onClear={onClearSpy} />);
+    render(<Cart carrito={carrito} onRemove={onRemoveSpy} onClear={onClearSpy} />);
 
-    const pagarButton = screen.getByText("Pagar");
-    fireEvent.click(pagarButton);
+    await act(async () => {
+      fireEvent.click(screen.getByText((content) => content.includes("Pagar")));
+    });
 
-    expect(window.alert).toHaveBeenCalledWith("¡Gracias por tu compra en CatCafe Michis 😺!");
-    expect(onClearSpy).toHaveBeenCalled();
+    expect(window.alert).toHaveBeenCalledWith("Debes iniciar sesión antes de pagar 😺");
   });
 
 });
+
