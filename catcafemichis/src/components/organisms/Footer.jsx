@@ -1,3 +1,5 @@
+import React from "react";
+
 import "./organismos.css";
 
 const Footer = () => {
