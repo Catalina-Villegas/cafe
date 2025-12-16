@@ -35,7 +35,7 @@ function RegistrationForm() {
         apellidos: formData.apellidos,
         correo: formData.correo,
         contrasenia: formData.contrasenia,
-        tipoUsuario: "cliente"
+        rol: "cliente"
       };
 
       const response = await UsuarioService.registrar(usuario);
@@ -136,5 +136,6 @@ function RegistrationForm() {
 }
 
 export default RegistrationForm;
+
 
 
