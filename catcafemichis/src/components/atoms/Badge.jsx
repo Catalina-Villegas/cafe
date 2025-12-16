@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function Badge({ label, color = "red" }) {
   const styles = {
     backgroundColor: color,
