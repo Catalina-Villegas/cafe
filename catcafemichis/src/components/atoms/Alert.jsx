@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function Alert({ type = "info", message }) {
   const colors = {
     info: "#e3f2fd",
